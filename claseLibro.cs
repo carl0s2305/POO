@@ -22,18 +22,19 @@ internal class Program
 
         public void ingresarLibro()
         {
+                j = 0;
                 Console.WriteLine("\nDATOS DEL LIBRO:\nNombre del libro: ");
                 nombrE = Console.ReadLine();
 
                 for (int i = 0; i < libros.Count; i++)
                 {
-                    if (libros[i].nombre.Equals(nombrE.ToUpper()))
+                    if (libros[i].nombre == nombrE.ToUpper())
                     {
-                        j = (j+1);
+                        j = (j + 1);
                     }
                 }
-                
-                if(j > 0)
+
+                if (j > 0)
                 {
                     Console.WriteLine("\nEl libro " + nombrE.ToUpper() + " ya esta registrado.\n");
                 }
@@ -52,7 +53,7 @@ internal class Program
 
                     libros.Add(new libro() { nombre = nombrE.ToUpper(), editorial = editoriaL.ToUpper(), autor = autoR.ToUpper(), anho = anhO, status = 0 });
                 }
-        }
+            }
             public void prestarLibro()
             {
                 Console.WriteLine("\nEscriba el nombre del libro que quiera prestar: ");
@@ -79,16 +80,24 @@ internal class Program
 
                 List<libro> librosFilter = libros.Where(item => item.nombre == nombrE.ToUpper()).ToList();
 
-                if (librosFilter[0].status == 1)
+                if (librosFilter.Count > 0)
                 {
-                    libros.Remove(librosFilter[0]);
-                    libros.Add(new libro() { nombre = librosFilter[0].nombre, editorial = librosFilter[0].editorial, autor = librosFilter[0].autor, anho = librosFilter[0].anho, status = 2 });
-                    Console.WriteLine("");
+                    if (librosFilter[0].status == 1)
+                    {
+                        libros.Remove(librosFilter[0]);
+                        libros.Add(new libro() { nombre = librosFilter[0].nombre, editorial = librosFilter[0].editorial, autor = librosFilter[0].autor, anho = librosFilter[0].anho, status = 2 });
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nEl libro " + librosFilter[0].nombre + " no esta prestado.\n");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("\nEl libro " + librosFilter[0].nombre + " no esta prestado.\n");
+                    Console.WriteLine("NO HAY LIBROS PRESTADOS");
                 }
+                
             }
             public void printarLibrosPrestados()
             {
@@ -158,6 +167,7 @@ internal class Program
                         optiOn = mostrarMenu();
                     }
                 }
+                optiOn = mostrarMenu();
             } while (optiOn > 0 && optiOn < 7);
 
             
