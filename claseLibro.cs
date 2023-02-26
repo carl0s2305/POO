@@ -66,6 +66,7 @@ internal class Program
                 {
                     libros.Remove(librosFilter[0]);
                     libros.Add(new libro() { nombre = librosFilter[0].nombre, editorial = librosFilter[0].editorial, autor = librosFilter[0].autor, anho = librosFilter[0].anho, status = 1 }); ;
+                    Console.WriteLine("\nEL LIBRO " + librosFilter[0].nombre + " SE HA PRESTADO CORRECTAMENTE!\n");
                 }
                 else
                 {
@@ -82,11 +83,11 @@ internal class Program
 
                 if (librosFilter.Count > 0)
                 {
-                    if (librosFilter[0].status == 1)
+                    if (librosFilter[0].status == 1 && librosFilter[0].nombre == nombrE.ToUpper())
                     {
                         libros.Remove(librosFilter[0]);
                         libros.Add(new libro() { nombre = librosFilter[0].nombre, editorial = librosFilter[0].editorial, autor = librosFilter[0].autor, anho = librosFilter[0].anho, status = 2 });
-                        Console.WriteLine("");
+                        Console.WriteLine("\nEL LIBRO " + librosFilter[0].nombre + " SE HA DEVUELTO CORRECTAMENTE!\n");
                     }
                     else
                     {
@@ -95,7 +96,7 @@ internal class Program
                 }
                 else
                 {
-                    Console.WriteLine("NO HAY LIBROS PRESTADOS");
+                    Console.WriteLine("\nNO HAY LIBROS PRESTADOS\n");
                 }
                 
             }
@@ -103,12 +104,19 @@ internal class Program
             {
                 List<libro> librosFilter = libros.Where(item => item.status == 1).ToList();
 
-                for (int i = 0; i < librosFilter.Count; i++)
+                if (librosFilter.Count > 0 )
                 {
-                    Console.WriteLine("\nLibro " + (i + 1) + "\nNombre: " + librosFilter[i].nombre + "\nAutor: " + librosFilter[i].autor + "\nEditorial: " + librosFilter[i].editorial + ", " + librosFilter[i].anho + ".");
-                }
+                    for (int i = 0; i < librosFilter.Count; i++)
+                    {
+                        Console.WriteLine("\nLibro " + (i + 1) + "\nNombre: " + librosFilter[i].nombre + "\nAutor: " + librosFilter[i].autor + "\nEditorial: " + librosFilter[i].editorial + ", " + librosFilter[i].anho + ".");
+                    }
 
-                Console.WriteLine("");
+                    Console.WriteLine("");
+                }
+                else
+                {
+                    Console.WriteLine("\nNo hay libros prestados.\n");
+                }
             }
             public void printarLibros()
         {
